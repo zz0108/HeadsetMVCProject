@@ -1,0 +1,79 @@
+﻿@using Headset.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "登入";
+    Layout = null;
+}
+<link href="~/Asset/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Asset/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Asset/css/elegant-icons.css" rel="stylesheet" />
+<link href="~/Asset/css/nice-select.css" rel="stylesheet" />
+<link href="~/Asset/css/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Asset/css/owl.carousel.min.css" rel="stylesheet" />
+<link href="~/Asset/css/slicknav.min.css" rel="stylesheet" />
+<link href="~/Asset/css/style.css" rel="stylesheet" />
+
+<h2>@ViewBag.Title.</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>使用本機帳戶進行登入。</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="登入" class="btn btn-default" />
+                    </div>
+                </div>
+                <p>
+                    @Html.ActionLink("以新使用者身分註冊", "Register")
+                </p>
+                    <p>
+                        @Html.ActionLink("忘記密碼?", "ForgotPassword")
+                    </p>
+            }
+        </section>
+    </div>
+    <div class="col-md-4">
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Asset/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Asset/js/bootstrap.min.js"></script>
+    <script src="~/Asset/js/jquery.nice-select.min.js"></script>
+    <script src="~/Asset/js/jquery-ui.min.js"></script>
+    <script src="~/Asset/js/jquery.slicknav.js"></script>
+    <script src="~/Asset/js/mixitup.min.js"></script>
+    <script src="~/Asset/js/owl.carousel.min.js"></script>
+    <script src="~/Asset/js/main.js"></script>
+}
